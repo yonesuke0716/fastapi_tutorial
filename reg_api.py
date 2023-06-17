@@ -3,27 +3,29 @@ from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
 
-class DatasetIn(BaseModel):
-    X_train: str
-    X_test: str
-    y_train: str
-    y_test: str
+class ModelParam(BaseModel):
+    test_size: float
 
 
 app = FastAPI()
 
 
 @app.post("/")
-def eval_regression(df_in: DatasetIn):
-    X_train = pd.read_json(df_in.X_train)
-    X_test = pd.read_json(df_in.X_test)
-    y_train = pd.read_json(df_in.y_train)
-    y_test = pd.read_json(df_in.y_test)
-
+def eval_california_price_rmse(params: ModelParam):
+    california_housing = fetch_california_housing()
+    X = pd.DataFrame(california_housing.data, columns=california_housing.feature_names)
+    y = pd.DataFrame(california_housing.target)
+    X = X.round(2)
+    y = y.round(2)
+    # 訓練データとテストデータに分割する
+    print(params.test_size)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=params.test_size)
     # 回帰モデルの作成
     reg = LinearRegression()
 
@@ -34,7 +36,6 @@ def eval_regression(df_in: DatasetIn):
     model_train_pred = reg.predict(X_train)
     model_train_mse = mean_squared_error(y_train, model_train_pred)
     model_train_rmse = np.sqrt(model_train_mse)
-    print(model_train_rmse)
 
     # 訓練データに対するmodelの性能評価
     model_test_pred = reg.predict(X_test)
