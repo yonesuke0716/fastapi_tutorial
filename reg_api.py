@@ -21,8 +21,6 @@ def eval_california_price_rmse(params: ModelParam):
     california_housing = fetch_california_housing()
     X = pd.DataFrame(california_housing.data, columns=california_housing.feature_names)
     y = pd.DataFrame(california_housing.target)
-    X = X.round(2)
-    y = y.round(2)
     # 訓練データとテストデータに分割する
     print(params.test_size)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=params.test_size)
