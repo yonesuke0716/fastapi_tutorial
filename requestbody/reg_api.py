@@ -10,7 +10,9 @@ from sklearn.metrics import mean_squared_error
 
 
 class ModelParam(BaseModel):
+    random_state: int
     test_size: float
+    is_shuffle: bool
 
 
 app = FastAPI()
@@ -22,8 +24,10 @@ def eval_california_price_rmse(params: ModelParam):
     X = pd.DataFrame(california_housing.data, columns=california_housing.feature_names)
     y = pd.DataFrame(california_housing.target)
     # 訓練データとテストデータに分割する
-    print(params.test_size)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=params.test_size)
+    print(params.random_state, params.test_size, params.is_shuffle)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, random_state=params.random_state, test_size=params.test_size, shuffle=params.is_shuffle
+    )
     # 回帰モデルの作成
     reg = LinearRegression()
 
