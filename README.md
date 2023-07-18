@@ -1,51 +1,17 @@
 # fastapi_tutorial
 
-## 仮想環境の構築手順
-### pyenv, pyenv-virtualenvのインストール
-"""
-brew install pyenv pyenv-virtualenv
-"""
-パスを通す
-"""
-echo 'export PYENV_ROOT="${HOME}/.pyenv"' >> ~/.bash_profile
-echo 'export PATH="${PYENV_ROOT}/bin:$PATH"' >> ~/.bash_profile
-echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
-source ~/.bash_profile
-"""
+## fastapiについてお試しするコードを書いてます。
 
-### 仮想環境の構築
-"""
-pyenv install 3.11.3
-"""
-できたか確認(3.11.3があればOK)
-"""
-pyenv versions
-"""
-Python3.11.3の下にvirtualenvを作成
-"""
-pyenv virtualenv 3.11.3 bottle_test
-"""
-仮想環境を切り替える
-"""
-pyenv global bottle_test
-"""
-先頭に(bottle_test)と出ればOK
+動かし方などは以下の記事を参考にしながらお試しください。
 
-仮想環境を終了するとき
-"""
-pyenv global system
-"""
+### 入門編
 
-仮想環境を削除するとき
-"""
-pyenv uninstall hoge
-"""
+https://yonesuke0716.hatenablog.com/entry/2023/06/15/232908
 
-## ライブラリのインストール
-"""
-pip3 install --no-cache-dir -r requirements.txt
-"""
+### 実践編
 
-## 実行方法
-python3 app.py
+https://yonesuke0716.hatenablog.com/entry/2023/06/24/225234
+
+### 応用編
+
+https://yonesuke0716.hatenablog.com/entry/2023/07/18/223326
